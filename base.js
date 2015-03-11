@@ -120,3 +120,16 @@ addEvent(cnt_Main_Article, 'mouseup', function(ev){
     GetSelectedText(cursorPos);
     scTools.style.background = '#fff';
 }); 
+
+
+/*绑定事件以后的用法*/
+
+document.body.onclick = function(e){
+var e = e || window.event;
+var target = e.target || e.srcElement;
+if(target.id == 's_ewm'){
+    //
+}else{
+    //
+ 	}
+}
