@@ -52,3 +52,71 @@ function getMousePoint(ev) {
 
     return point;
 };
+/**
+ * 鼠标划过
+ * 注意浏览器兼容问题
+ * @cursorPos 获取鼠标位置
+ */
+var _COLLECT_TEXT;
+var _COLLECT_TEXT_len = '';
+function GetSelectedText (cursorPos){
+
+    var text,len;
+    // all browsers, except IE before version 9
+    if (window.getSelection){
+        var range = window.getSelection();
+        text = range.toString();
+        text=text.slice(0,117)+'...';
+        len = text.length;
+
+    } else {
+        // Internet Explorer
+        if (document.selection){
+            var range = document.selection.createRange();
+            text = range.text;
+            text=text.slice(0,117)+'...';
+            len = text.length;
+
+        }
+    }
+    //console.log(text);
+    if('' != text){
+        _COLLECT_TEXT = text;
+    }
+
+    if(_COLLECT_TEXT_len != len){
+        collectModule(len,cursorPos);
+    }
+
+    _COLLECT_TEXT_len = len;
+
+};
+/**
+ * 添加事件
+ * @param node		监听对象
+ * @param type		监听类型
+ * @param listener	触发事件
+ * @return			事件是否添加成功
+ */
+function addEvent(node, type, listener){
+    if(node.addEventListener){
+        node.addEventListener(type, listener, false);
+        return true;
+    } else if(node.attachEvent){
+        node['e' + type + listener] = listener;
+        node[type + listener] = function(){
+            node['e' + type + listener](window.event);
+        };
+        node.attachEvent('on' + type, node[type + listener]);
+        return true;
+    }
+    return false;
+};
+
+
+//var cnt_Main_Article = document.getElementById('Cnt-Main-Article-QQ');
+addEvent(cnt_Main_Article, 'mouseup', function(ev){
+    var cursorPos = getMousePoint(ev), d;
+    GetSelectedText(cursorPos);
+    scTools.style.background = '#fff';
+}); 
