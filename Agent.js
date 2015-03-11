@@ -1,0 +1,32 @@
+var
+    gsAgent = navigator.userAgent.toLowerCase(),
+    gsAppVer = navigator.appVersion.toLowerCase(),
+    gsAppName = navigator.appName.toLowerCase(),
+    gbIsOpera = gsAgent.indexOf("opera") > -1,
+    gbIsWebKit = gsAgent.indexOf("applewebkit") > -1,
+    gbIsKHTML = gsAgent.indexOf("khtml") > -1
+        || gsAgent.indexOf("konqueror") > -1 || gbIsWebKit,
+    gbIsIE = (gsAgent.indexOf("compatible") > -1 && !gbIsOpera)
+        || gsAgent.indexOf("msie") > -1,
+    gbIsTT = gbIsIE ? (gsAppVer.indexOf("tencenttraveler") != -1 ? 1 : 0) : 0,
+    gbIsQBWebKit = gbIsWebKit ? (gsAppVer.indexOf("qqbrowser") != -1 ? 1 : 0) : 0,
+    gbIsChrome = gbIsWebKit && !gbIsQBWebKit && gsAgent.indexOf("chrome") > -1 && gsAgent.indexOf("se 2.x metasr 1.0") < 0,
+    gbIsSafari = gbIsWebKit && !gbIsChrome && !gbIsQBWebKit,
+    gbIsQBIE = gbIsIE && gsAppVer.indexOf("qqbrowser") != -1,
+    gbIsFF = gsAgent.indexOf("gecko") > -1 && !gbIsKHTML,
+    gbIsNS = !gbIsIE && !gbIsOpera && !gbIsKHTML && (gsAgent.indexOf("mozilla") == 0)
+        && (gsAppName == "netscape"),
+    gbIsAgentErr = !(gbIsOpera || gbIsKHTML || gbIsSafari || gbIsIE || gbIsTT
+    || gbIsFF || gbIsNS),
+    gbIsWin = gsAgent.indexOf("windows") > -1 || gsAgent.indexOf("win32") > -1,
+    gbIsVista = gbIsWin && (gsAgent.indexOf("nt 6.0") > -1 || gsAgent.indexOf("windows vista") > -1),
+    gbIsWin7 = gbIsWin && gsAgent.indexOf("nt 6.1") > -1,
+    gbIsMac = gsAgent.indexOf("macintosh") > -1 || gsAgent.indexOf("mac os x") > -1,
+    gsMacVer = /mac os x (\d+)(\.|_)(\d+)/.test(gsAgent) && parseFloat(RegExp.$1 + "." + RegExp.$3),
+    gbIsLinux = gsAgent.indexOf("linux") > -1,
+    gbIsAir = gsAgent.indexOf("adobeair") > -1,
+    gnIEVer = /MSIE (\d+.\d+);/i.test(gsAgent) && parseFloat(RegExp["$1"]),
+    gsFFVer = /firefox\/((\d|\.)+)/i.test(gsAgent) && RegExp["$1"],
+    gsSafariVer = "" + (/version\/((\d|\.)+)/i.test(gsAgent) && RegExp["$1"]),
+    gsChromeVer = "" + (/chrome\/((\d|\.)+)/i.test(gsAgent) && RegExp["$1"]),
+    gsQBVer = "" + (/qqbrowser\/((\d|\.)+)/i.test(gsAgent) && RegExp["$1"]),
